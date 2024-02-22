@@ -14,97 +14,157 @@ This project is a mini-Reddit clone, designed to provide RESTful APIs for users 
 ```
 mini-reddit-clone
 │   README.md
+|   package-lock.json
 │   package.json   
-│   server.js
-│
+│   app.js
+│   .gitignore
+|
 └───models
 │   │   user.js
 │   │   post.js
-│   │   comment.js
 │   
 └───routes
 │   │   authRoutes.js
 │   │   postRoutes.js
-│   │   commentRoutes.js
-│
-└───controllers
-│   │   authController.js
-│   │   postController.js
-│   │   commentController.js
-│   
-└───middlewares
-│   │   authMiddleware.js
-│   
+│    
 └───config
     │   config.js
 ```
 
 ### Features
 
-#### User Authentication [8 marks]
+#### User Authentication -:
+
 - **Sign Up**:
   - Endpoint: `POST /api/signup`
   - Allows users to register with their username, email, and password.
   - Passwords are securely hashed using bcrypt before storing in the database.
+  - POST -: http://localhost:5000/api/auth/signup
+  - BODY -> raw -> JSON -> 
+
+  ```json
+      {
+        "username" : "ana",
+        "email" : "ana@gmail.com",
+        "password" : "ana@7447",
+        "phone" : 7447640893
+     }
+  ```
 
 - **Login**:
   - Endpoint: `POST /api/login`
   - Allows registered users to login with their credentials.
   - Returns a JWT token for authenticated requests.
+  - POST -: http://localhost:5000/api/auth/login
+  - BODY -> row -> JSON
 
-#### Post CRUD Operations [9 marks]
+  ```json
+    {
+        "email" : "ana@gmail.com",
+        "password" : "ana@7447"
+    }
+  ```
+
+#### Post CRUD Operations -: 
+
 - **Create a Post**:
   - Endpoint: `POST /api/posts`
   - Authenticated users can create new posts with a title and content.
+  - Creating a post
+  - POST -: http://localhost:5000/api/blog/posts
+  - BODY -> raw -> JSON
+
+  ```json
+      {
+          "title" : "node",
+          "content" : "node interview question",
+          "author" : "65d61c8f6d20e3716d7def55"
+      }
+  ```
 
 - **Read a Post**:
   - Endpoint: `GET /api/posts/:postId`
   - Allows users to view a specific post by its ID.
+  - GET -: http://localhost:5000/api/blog/posts/65d61da3c098128d13a51ae3
 
 - **Update a Post**:
   - Endpoint: `PUT /api/posts/:postId`
   - Allows the author of a post to update its title or content.
+  - PUT -: http://localhost:5000/api/blog/posts/65d61da3c098128d13a51ae3
+  - BODY -> raw -> JSON
+
+    ```json
+      {
+          "title": "linux",
+          "content": "linux interview questions"
+      }
+    ```
 
 - **Delete a Post**:
   - Endpoint: `DELETE /api/posts/:postId`
   - Allows the author of a post to delete it permanently.
+  - DELETE -: http://localhost:5000/api/blog/posts/65d61da3c098128d13a51ae3
 
-#### Comments on Posts with CRUD Operations [9 marks]
+#### Comments on Posts with CRUD Operations -: 
+
 - **Create a Comment**:
   - Endpoint: `POST /api/posts/:postId/comments`
   - Users can add comments to a specific post.
+  - POST -:  http://localhost:5000/api/blog/posts/65d61da3c098128d13a51ae3/comments
+  - BODY -> row -> JSON
+  ```json
+      {
+          "text" : "Great share...",
+          "author" : "65d61c8f6d20e3716d7def55" 
+      }
+  ```
 
 - **Read Comments on a Post**:
   - Endpoint: `GET /api/posts/:postId/comments`
   - Allows users to view all comments on a post.
+  - GET -: http://localhost:5000/api/blog/posts/65d61da3c098128d13a51ae3/comments
 
 - **Update a Comment**:
   - Endpoint: `PUT /api/posts/:postId/comments/:commentId`
   - Comment authors can update the text of their comments.
+  - PUT -: http://localhost:5000/api/blog/posts/65d61da3c098128d13a51ae3/comments/65d61f0638e6db3a1d7638d8
+  - BODY -> raw -> JSON
+  ```json
+    {
+        "text" : "Thanks for sharing",
+        "author" : "65d61c8f6d20e3716d7def55"
+    }
+  ```
 
 - **Delete a Comment**:
   - Endpoint: `DELETE /api/posts/:postId/comments/:commentId`
   - Allows the author of a comment to delete it from the post.
+  - DELETE -: http://localhost:5000/api/blog/posts/65d61da3c098128d13a51ae3/comments/65d61f0638e6db3a1d7638d8  
 
-#### Upvoting and Downvoting System for Posts and Comments [9 marks]
+#### Upvoting and Downvoting System for Posts and Comments -: 
+
 - **Upvoting a Post**:
   - Endpoint: `PUT /api/posts/:postId/upvote`
   - Allows users to upvote a post, increasing its upvote count.
+  - PUT -: http://localhost:5000/api/blog/posts/65d61da3c098128d13a51ae3/upvote
 
 - **Downvoting a Post**:
   - Endpoint: `PUT /api/posts/:postId/downvote`
   - Allows users to downvote a post, increasing its downvote count.
+  - PUT -: http://localhost:5000/api/blog/posts/65d61da3c098128d13a51ae3/downvote
 
 - **Upvoting a Comment**:
   - Endpoint: `PUT /api/posts/:postId/comments/:commentId/upvote`
   - Allows users to upvote a comment, increasing its upvote count.
+  - PUT -:  http://localhost:5000/api/blog/posts/65d61da3c098128d13a51ae3/comments/65d61ed238e6db3a1d7638d4/upvote
 
 - **Downvoting a Comment**:
   - Endpoint: `PUT /api/posts/:postId/comments/:commentId/downvote`
   - Allows users to downvote a comment, increasing its downvote count.
+  - PUT -: http://localhost:5000/api/blog/posts/65d61da3c098128d13a51ae3/comments/65d61ed238e6db3a1d7638d4/downvote
 
-#### Integration of All Parts [10 marks]
-- The project integrates user authentication, post CRUD operations, comment CRUD operations, and the upvoting/downvoting system into a cohesive application.
+#### Integration of All Parts -: 
+- The project integrates user authentication, post CRUD operations, comment CRUD operations, and the upvoting/downvoting  system into a cohesive application.
 - The API endpoints are designed to work seamlessly together, providing a full-featured mini-Reddit experience.
 
 ### Deployment
